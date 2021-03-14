@@ -12,12 +12,12 @@ Versión: 24 de junio de 2020
 
 ## Descripción de la práctica
 
-Esta práctica consiste en la ampliación del proyecto de gestión de usuarios y quizzes desarrollado en clase. Se añadirá la posibilidad de jugar a responder las preguntas almacenadas en el servicio de manera aleatoria y consecutiva hasta fallar alguna de ellas. Se implementará también una nueva funcionalidad para almacenar las puntuaciones conseguidas por cada usuario (número de aciertos) y para poder consultarlas en cualquier momento. 
+Esta práctica consiste en la ampliación del proyecto de gestión de usuarios y quizzes desarrollado en clase. Se añadirá la posibilidad de jugar a responder las preguntas almacenadas en el servicio de manera aleatoria y consecutiva hasta fallar alguna de ellas. Se implementará también una nueva funcionalidad para almacenar las puntuaciones conseguidas por cada usuario (número de aciertos) y para poder consultarlas en cualquier momento.
 
 
 ## Descargar el código del proyecto
 
-Es necesario utilizar la **versión 12 de Node.js** para el desarrollo de esta práctica. El proyecto debe clonarse en el ordenador desde el que se está trabajando: 
+Es necesario utilizar la **versión 12 de Node.js** para el desarrollo de esta práctica. El proyecto debe clonarse en el ordenador desde el que se está trabajando:
 
 ```
 $ git clone https://github.com/ging-moocs/MOOC_node_mod3-bbdd_entrega
@@ -56,7 +56,7 @@ $ npm start     ##  or 'node main'
     > df | fd        ## favourite: delete
     >
     > e              ## exit & return to shell
-    > 
+    >
 ```
 
 ## Tareas
@@ -73,17 +73,20 @@ Debe incluirse el nuevo comando ``p`` (play) que comienza una nueva ronda de pre
 
 ### Funcionalidad scores
 
-Las puntuaciones obtenidas por un usuario registrado deben almacenarse en la base de datos al terminar una ronda de preguntas. Además las puntuaciones de los usuarios deben poder consultarse en cualquier momento usando el nuevo comando ``ls`` (list score). Para ello deben realizarse los siguientes pasos: 
+Las puntuaciones obtenidas por un usuario registrado deben almacenarse en la base de datos al terminar una ronda de preguntas. Además las puntuaciones de los usuarios deben poder consultarse en cualquier momento usando el nuevo comando ``ls`` (list score). Para ello deben realizarse los siguientes pasos:
 
 1. Incluir un nuevo modelo ``Score`` así como su relación con la tabla de usuarios. Hay que tener en cuenta que para un mismo usuario se almacenarán varias puntuaciones, una por cada vez que juegue (debe utilizarse el alias ``scores`` para referenciar las puntuaciones asociadas a un usuario). La tabla ``Scores`` almacenará los siguientes atributos:
 	- Atributo ``wins`` de tipo entero que indica el número de quizzes contestados correctamente. No puede ser nulo y debe ser mayor o igual que 0.
 	- Referencia ``userId`` al identificador de usuario de la tabla User.
 
 2. Implementar una migración de la base de datos para crear la nueva tabla ``Scores``.
+  npx sequelize migration:create --name CreateScoresTable
+  npx sequelize seed:create --name FillScoresTable
+  Implementar programaciones en los nuevos js creados en los directorios migrations y seeders
 
-3. Ampliar la funcionalidad play para solicitar el nombre de usuario (usando la función ``rl.questionP``) al finalizar el juego y para almacenar la puntuación asociada a dicho usuario en la tabla ``Scores`` de la base de datos. En caso de que el usuario introducido no exista se creará un nuevo usuario con el nombre introducido y edad 0. 
+3. Ampliar la funcionalidad play para solicitar el nombre de usuario (usando la función ``rl.questionP``) al finalizar el juego y para almacenar la puntuación asociada a dicho usuario en la tabla ``Scores`` de la base de datos. En caso de que el usuario introducido no exista se creará un nuevo usuario con el nombre introducido y edad 0.
 
-4. Implementar la funcionalidad del nuevo comando ``ls`` (list score) que pinta una lista (cada línea debe pintarse con la función ``rl.log``) de las puntaciones almacenadas en la base de datos ordenadas de mayor a menor con el siguiente formato (para dar formato a la fecha se debe utilizar el método ``toUTCString()`` del objeto ``Date``): 
+4. Implementar la funcionalidad del nuevo comando ``ls`` (list score) que pinta una lista (cada línea debe pintarse con la función ``rl.log``) de las puntaciones almacenadas en la base de datos ordenadas de mayor a menor con el siguiente formato (para dar formato a la fecha se debe utilizar el método ``toUTCString()`` del objeto ``Date``):
 
 
 ```
@@ -95,9 +98,9 @@ Patri|1|Tue, 18 Feb 2020 14:20:27 GMT
 
 **¡¡Nota importante!!**: Si durante el desarrollo de la práctica crees que has podido "romper" la base de datos o crear alguna inconsistencia siempre puedes reiniciar su estado incial eliminando el fichero ``db.sqlite`` y ejecutando de nuevo los comandos ``npm run migrate`` y ``npm run seed``
 
-### Prueba de la práctica 
+### Prueba de la práctica
 
-Para ayudar al desarrollo, se provee una herramienta de autocorrección que prueba las distintas funcionalidades que se piden en el enunciado. Para utilizar esta herramienta debes tener node.js (y npm) ([https://nodejs.org/es/](https://nodejs.org/es/)) y Git instalados. 
+Para ayudar al desarrollo, se provee una herramienta de autocorrección que prueba las distintas funcionalidades que se piden en el enunciado. Para utilizar esta herramienta debes tener node.js (y npm) ([https://nodejs.org/es/](https://nodejs.org/es/)) y Git instalados.
 
 Para instalar y hacer uso de la [herramienta de autocorrección](https://www.npmjs.com/package/moocauto) en el ordenador local, ejecuta los siguientes comandos en el directorio del proyecto:
 
@@ -123,9 +126,9 @@ El alumno debe subir un fichero comprimido ZIP incluyendo todos los ficheros de 
 
 ## Evaluación de la práctica
 
-La evaluación de la práctica se realizará mediante revisión por pares (P2P). Cada alumno tendrá que revisar la práctica de 3 de sus compañeros y otros 3 revisarán la suya. Se puede utilizar la herramienta de autocorrección (moocauto) como ayuda para revisar la práctica de los compañeros. 
+La evaluación de la práctica se realizará mediante revisión por pares (P2P). Cada alumno tendrá que revisar la práctica de 3 de sus compañeros y otros 3 revisarán la suya. Se puede utilizar la herramienta de autocorrección (moocauto) como ayuda para revisar la práctica de los compañeros.
 
-El objetivo de este curso es sacar el máximo provecho al trabajo que están dedicando, por lo que les recomendamos que utilicen la evaluación para ayudar a sus compañeros enviando comentarios sobre la corrección del código, su claridad, legibilidad, estructuración y documentación. 
+El objetivo de este curso es sacar el máximo provecho al trabajo que están dedicando, por lo que les recomendamos que utilicen la evaluación para ayudar a sus compañeros enviando comentarios sobre la corrección del código, su claridad, legibilidad, estructuración y documentación.
 
 Dado que es un curso para principiantes, ante la duda les pedimos que sean benevolentes con sus compañeros, porque muchos participantes están empezando y los primeros pasos siempre son difíciles.
 
