@@ -80,9 +80,9 @@ Las puntuaciones obtenidas por un usuario registrado deben almacenarse en la bas
 	- Referencia ``userId`` al identificador de usuario de la tabla User.
 
 2. Implementar una migración de la base de datos para crear la nueva tabla ``Scores``.
-  npx sequelize migration:create --name CreateScoresTable
-  npx sequelize seed:create --name FillScoresTable
-  Implementar programaciones en los nuevos js creados en los directorios migrations y seeders
+  	- npx migration:create --name CreateScoresTable
+  	- npx npx sequelize seed:create --name FillScoresTable
+  	- npx Implementar programaciones en los nuevos js creados en los directorios migrations y seeders
 
 3. Ampliar la funcionalidad play para solicitar el nombre de usuario (usando la función ``rl.questionP``) al finalizar el juego y para almacenar la puntuación asociada a dicho usuario en la tabla ``Scores`` de la base de datos. En caso de que el usuario introducido no exista se creará un nuevo usuario con el nombre introducido y edad 0.
 
