@@ -1,7 +1,7 @@
 
 const {User, Quiz} = require("./model.js").models;
 
-exports.help = (rl) => 
+exports.help = (rl) =>
   rl.log(
     `  Commands (params are requested after):
     > h              ## show help
@@ -22,14 +22,17 @@ exports.help = (rl) =>
     > cf | fc        ## favourite: create
     > df | fd        ## favourite: delete
     >
-    > e              ## exit & return to shell`
+    > e              ## exit & return to shell
+
+    > p              ## quiz: play
+    > ls             ## Scores Users`
   )
 
 // Show all users in DB
 exports.list = async (rl) => {
 
   let users = await User.findAll();
-  
+
   users.forEach( u => rl.log(`  ${u.name} is ${u.age} years old`));
 }
 
@@ -42,7 +45,7 @@ exports.create = async (rl) => {
   let age = await rl.questionP("Enter age");
   if (!age) throw new Error("Response can't be empty!");
 
-  await User.create( 
+  await User.create(
     { name, age }
   );
   rl.log(`   ${name} created with ${age} years`);
@@ -73,7 +76,7 @@ if (!user) throw new Error(`  '${name}' is not in DB`);
   );
 
   rl.log(`    Favourite quizzes:`)
-  user.fav.forEach( (quiz) => 
+  user.fav.forEach( (quiz) =>
     rl.log(`      ${quiz.question} -> ${quiz.answer} (${quiz.author.name}, ${quiz.id})`)
   );
 }
@@ -91,7 +94,7 @@ exports.update = async (rl) => {
   if (!age) throw new Error("Response can't be empty!");
 
   let n = await User.update(
-    {name, age}, 
+    {name, age},
     {where: {name: old_name}}
   );
   if (n[0]===0) throw new Error(`  ${old_name} not in DB`);
@@ -110,6 +113,5 @@ exports.delete = async (rl) => {
   );
   if (n===0) throw new Error(`User ${name} not in DB`);
 
-  rl.log(`  ${name} deleted from DB`);  
+  rl.log(`  ${name} deleted from DB`);
 }
-

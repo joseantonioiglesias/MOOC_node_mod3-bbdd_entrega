@@ -2,6 +2,10 @@
 const user = require("./cmds_user.js");
 const quiz = require("./cmds_quiz.js");
 const favs = require("./cmds_favs.js");
+
+const game = require("./cmds_game.js");
+const scrs = require("./cmds_score.js");
+
 const readline = require('readline');
 
 const rl = readline.createInterface({
@@ -25,6 +29,10 @@ rl.on('line', async (line) => {
     if      ('' ===cmd)   {}
     else if ('h' ===cmd)  { user.help(rl);}
 
+    else if (['p'].includes(cmd))             { await game.play(rl);}
+    else if ('ls'===cmd)                      { await scrs.scoreboard(rl);}
+
+
     else if (['lu', 'ul', 'u'].includes(cmd)) { await user.list(rl);}
     else if (['cu', 'uc'].includes(cmd))      { await user.create(rl);}
     else if (['ru', 'ur', 'r'].includes(cmd)) { await user.read(rl);}
@@ -36,6 +44,8 @@ rl.on('line', async (line) => {
     else if (['tq', 'qt', 't'].includes(cmd)) { await quiz.test(rl);}
     else if (['uq', 'qu'].includes(cmd))      { await quiz.update(rl);}
     else if (['dq', 'qd'].includes(cmd))      { await quiz.delete(rl);}
+
+    else if (['p'].includes(cmd))             { await quiz.play(rl);}
 
     else if (['lf', 'fl', 'f'].includes(cmd)) { await favs.list(rl);}
     else if (['cf', 'fc'].includes(cmd))      { await favs.create(rl);}
